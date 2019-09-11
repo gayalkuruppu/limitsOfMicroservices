@@ -70,10 +70,7 @@ f2_list = [funcrec1, funcrec2, funcrec3, funcrec4, funcrec5]
 
 # no of combinations
 size = len(n_list)*len(ahw_list)*len(asw_list)*len(mttrsw_list)*len(f1_list)*len(f2_list)
-avail_list = np.zeros(size)
-
-# creating an 6D array for store availability values
-availability = np.zeros(, size)
+avail_list = [0]*size
 
 for n in n_list:
     for ahw in ahw_list:
@@ -85,8 +82,10 @@ for n in n_list:
                             (mttf_sw(asw, mttrsw) * f1(n) / (mttf_sw(asw, mttrsw) * f1(n) + mttrsw * f2(n))), n)
                         avail_list.append(temp)
 
-for i in itertools.product(n_list, ahw_list, asw_list, mttrsw_list, f1_list, f2_list):
-    print(list(i))
+data = []
+
+for i in itertools.product(n_list, ahw_list, asw_list, mttrsw_list, f1_list, f2_list, avail_list):
+    data.append(list(i))
 
 # data here should be the list containing all the data
 df = pd.DataFrame(data, columns=['Nodes', 'a_hw', 'a_sw', 'mttr_sw', 'f1', 'f2', 'availability'])
